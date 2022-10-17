@@ -16,6 +16,8 @@ const PARAMETER = /^\$([a-z0-9_]+(\:(number|float|string|date|boolean))?)/;
 const NUMBER = /^[+-]?[0-9]+(\.[0-9]+)?/;
 const STRING = /^'((?:[^\\']+?|\\.|'')*)'(?!')/;
 const DBLSTRING = /^"([^\\"]*(?:\\.[^\\"]*)*)"/;
+const SEMICOLON = /^;/;
+const UNKNOWN = /./u;
 
 class Lexer {
 
@@ -47,9 +49,12 @@ class Lexer {
                 this.parameterToken() ||
                 this.parensToken() ||
                 this.whitespaceToken() ||
-                this.literalToken();
+                this.literalToken() ||
+                this.semicolon() ||
+                this.unknown();
 
             if (bytesConsumed < 1) {
+                console.log( '^439847698476^' );
                 throw new Error(`NOTHING CONSUMED: Stopped at - '${this.chunk.slice(0, 30)}'`);
             }
 
@@ -264,6 +269,14 @@ class Lexer {
 
     regexEscape(str) {
         return str.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+    }
+
+    unknown(str) {
+        return this.tokenizeFromRegex('UNKNOWN', UNKNOWN);
+    }
+
+    semicolon(str) {
+        return this.tokenizeFromRegex('SEMICOLON', SEMICOLON);
     }
 
 }
