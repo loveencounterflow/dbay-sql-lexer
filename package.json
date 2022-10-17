@@ -3,11 +3,11 @@
   "description": "Lexer for SQL Syntax",
   "version": "0.0.2",
   "main": "lib/main.js",
-  "author": {
-    "name": "Andy Kent",
-    "email": "andy@forward.co.uk"
-  },
   "contributors": [
+    {
+      "name": "Andy Kent",
+      "email": "andy@forward.co.uk"
+    },
     {
       "name": "Damien \"Mistic\" Sorel",
       "email": "contact@git.strangeplanet.fr",
