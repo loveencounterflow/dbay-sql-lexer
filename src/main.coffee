@@ -13,7 +13,7 @@ class Lexer
                        @functionToken() or
                        @windowExtension() or
                        @sortOrderToken() or
-                       @seperatorToken() or
+                       @commaToken() or
                        @operatorToken() or
                        @numberToken() or
                        @mathToken() or
@@ -40,7 +40,7 @@ class Lexer
     for token, i in @tokens
       if token[0] is 'STAR'
         next_token = @tokens[i+1]
-        unless next_token[0] is 'SEPARATOR' or next_token[0] is 'FROM'
+        unless next_token[0] is 'COMMA' or next_token[0] is 'FROM'
           token[0] = 'MATH_MULTI'
 
   token: (name, value) ->
@@ -127,7 +127,7 @@ class Lexer
   booleanToken:     -> @tokenizeFromList('BOOLEAN', BOOLEAN)
 
   starToken:        -> @tokenizeFromRegex('STAR', STAR)
-  seperatorToken:   -> @tokenizeFromRegex('SEPARATOR', SEPARATOR)
+  commaToken:       -> @tokenizeFromRegex('COMMA', COMMA)
   literalToken:     -> @tokenizeFromRegex('LITERAL', LITERAL, 1, 0)
   numberToken:      -> @tokenizeFromRegex('NUMBER', NUMBER)
   parameterToken:   -> @tokenizeFromRegex('PARAMETER', PARAMETER, 1, 0)
@@ -172,7 +172,7 @@ class Lexer
   MATH                = ['+', '-', '||', '&&']
   MATH_MULTI          = ['/', '*']
   STAR                = /^\*/
-  SEPARATOR           = /^,/
+  COMMA           = /^,/
   WHITESPACE          = /^[ \n\r]+/
   LITERAL             = /^`?([a-z_][a-z0-9_]{0,}(\:(number|float|string|date|boolean))?)`?/i
   PARAMETER           = /^\$([a-z0-9_]+(\:(number|float|string|date|boolean))?)/
