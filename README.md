@@ -27,6 +27,7 @@ of the original code that was outside the scope of a lexer removed.
 # To Do
 
 * **[–]** return list of objects instead of list of lists
+* **[–]** use lower case for type names
 
 <!-- ## Is Done
 
