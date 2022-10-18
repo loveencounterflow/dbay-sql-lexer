@@ -27,9 +27,15 @@ of the original code that was outside the scope of a lexer removed.
 
 # To Do
 
-* **[–]** use lower case for type names
+* **[–]** regex on line 176 is incorrect because backticks can occur independently of each other:
+
+  ```
+  LITERAL             = /^`?([a-z_][a-z0-9_]{0,}(:(number|float|string|date|boolean))?)`?/iu
+  ```
 
 ## Is Done
 
+* **[+]** use `u`nicode flag on all regexes
 * **[+]** return list of objects instead of list of lists
+* **[+]** use lower case for type names
 
