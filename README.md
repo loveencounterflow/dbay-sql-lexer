@@ -17,7 +17,22 @@
 
 # 𓆤DBay SQL Lexer
 
-The DBay SQL Lexer takes an SQL string as input and returns a list of tokens in the format `{ type, text, idx, }`
+The DBay SQL Lexer takes an SQL string as input and returns a list of tokens in the format `{ type, text,
+idx, }`:
+
+```coffee
+tokens = ( require 'dbay-sqlite-parser' ).tokenize """select * from my_table"""
+```
+
+gives
+
+```js
+[ { type: 'select',       text: 'select',   idx: 0  },
+  { type: 'star',         text: '*',        idx: 7  },
+  { type: 'from',         text: 'from',     idx: 9  },
+  { type: 'identifier',   text: 'my_table', idx: 14 } ]
+```
+
 
 # Acknowledgements
 
@@ -27,6 +42,7 @@ of the original code that was outside the scope of a lexer removed.
 
 # To Do
 
+* **[–]** documentation
 * **[–]** make lexer accept Unicode identifiers
 * **[–]** regex on line 176 is incorrect because backticks can occur independently of each other:
 
