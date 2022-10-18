@@ -1,10 +1,10 @@
 class Lexer
   constructor: (sql, opts={}) ->
     @sql = sql
-    @preserveWhitespace = opts.preserveWhitespace || false
     @tokens = []
     @currentLine = 1
     @currentOffset = 0
+    @keep_whitespace  = cfg?.keep_whitespace ? false
     i = 0
     while @chunk = sql.slice(i)
       bytesConsumed =  @keywordToken() or
@@ -150,7 +150,7 @@ class Lexer
   whitespaceToken: ->
     return 0 unless match = WHITESPACE.exec(@chunk)
     partMatch = match[0]
-    @token('WHITESPACE', partMatch) if @preserveWhitespace
+    @token('WHITESPACE', partMatch) if @keep_whitespace
     newlines = partMatch.match(/\n/g, '')
     @currentLine += newlines?.length || 0
     return partMatch.length
