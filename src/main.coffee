@@ -185,5 +185,11 @@ class Lexer
 exports.tokenize = ( sql, cfg ) ->
   R = []
   for [ type, text, lnr, idx, ] in ( new Lexer sql, cfg ).tokens
-    R.push { type: type.toLowerCase(), text, idx, }
+    type = type.toLowerCase()
+    continue if type is 'eof'
+    type = switch type
+      when 'literal'    then 'identifier'
+      when 'dblstring'  then 'quoted_identifier'
+      else type
+    R.push { type, text, idx, }
   return R
