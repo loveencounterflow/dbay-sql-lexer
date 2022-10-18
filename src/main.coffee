@@ -48,7 +48,7 @@ class Lexer
 
   tokenizeFromStringRegex: (name, regex, part=0, lengthPart=part, output=true) ->
     return 0 unless match = regex.exec(@chunk)
-    partMatch = match[part].replace(/''/g, "'")
+    partMatch = match[part].replace(/''/gu, "'")
     @token(name, partMatch) if output
     return match[lengthPart].length
 
@@ -60,7 +60,7 @@ class Lexer
 
   tokenizeFromWord: (name, word=name) ->
     word = @regexEscape(word)
-    matcher = if (/^\w+$/).test(word)
+    matcher = if ( /^\w+$/u ).test(word)
       new RegExp("^(#{word})\\b",'ig')
     else
       new RegExp("^(#{word})",'ig')
@@ -141,7 +141,7 @@ class Lexer
     @tokenizeFromRegex('RIGHT_PAREN', /^\)/,)
 
   windowExtension: ->
-    match = (/^\.(win):(length|time)/i).exec(@chunk)
+    match = (/^\.(win):(length|time)/iu).exec(@chunk)
     return 0 unless match
     @token('WINDOW', match[1])
     @token('WINDOW_FUNCTION', match[2])
@@ -151,7 +151,7 @@ class Lexer
     return 0 unless match = WHITESPACE.exec(@chunk)
     partMatch = match[0]
     @token('WHITESPACE', partMatch) if @keep_whitespace
-    newlines = partMatch.match(/\n/g, '')
+    newlines = partMatch.match(/\n/gu, '')
     @currentLine += newlines?.length || 0
     return partMatch.length
 
@@ -159,7 +159,7 @@ class Lexer
   unknown:          -> @tokenizeFromRegex('UNKNOWN', UNKNOWN)
 
   regexEscape: (str) ->
-    str.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&")
+    str.replace(/[-[\]{}()*+?.,\\^$|#\s]/gu, "\\$&")
 
   SQL_FUNCTIONS       = ['AVG', 'COUNT', 'MIN', 'MAX', 'SUM']
   SQL_SORT_ORDERS     = ['ASC', 'DESC']
@@ -171,15 +171,15 @@ class Lexer
   BOOLEAN             = ['TRUE', 'FALSE', 'NULL']
   MATH                = ['+', '-', '||', '&&']
   MATH_MULTI          = ['/', '*']
-  STAR                = /^\*/
-  COMMA           = /^,/
-  WHITESPACE          = /^[ \n\r]+/
-  LITERAL             = /^`?([a-z_][a-z0-9_]{0,}(\:(number|float|string|date|boolean))?)`?/i
-  PARAMETER           = /^\$([a-z0-9_]+(\:(number|float|string|date|boolean))?)/
-  NUMBER              = /^[+-]?[0-9]+(\.[0-9]+)?/
-  STRING              = /^'((?:[^\\']+?|\\.|'')*)'(?!')/
-  DBLSTRING           = /^"([^\\"]*(?:\\.[^\\"]*)*)"/
-  SEMICOLON           = /^;/
+  STAR                = /^\*/u
+  COMMA               = /^,/u
+  WHITESPACE          = /^[ \n\r]+/u
+  LITERAL             = /^`?([a-z_][a-z0-9_]{0,}(:(number|float|string|date|boolean))?)`?/iu
+  PARAMETER           = /^\$([a-z0-9_]+(:(number|float|string|date|boolean))?)/u
+  NUMBER              = /^[+-]?[0-9]+(\.[0-9]+)?/u
+  STRING              = /^'((?:[^\\']+?|\\.|'')*)'(?!')/u
+  DBLSTRING           = /^"([^\\"]*(?:\\.[^\\"]*)*)"/u
+  SEMICOLON           = /^;/u
   UNKNOWN             = /./u
 
 #-----------------------------------------------------------------------------------------------------------
