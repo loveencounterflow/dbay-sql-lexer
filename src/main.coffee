@@ -53,6 +53,7 @@ class Lexer
         throw new Error "nothing consumed: Stopped at - #{rpr @chunk[ ... 100 ]}"
       @current_idx += codeunit_count
     @postProcess()
+    return undefined
 
   postProcess: ->
     for token, i in @tokens
@@ -60,9 +61,11 @@ class Lexer
         next_token = @tokens[i+1]
         unless next_token[0] is 'COMMA' or next_token[0] is 'FROM'
           token[0] = 'MATH_MULTI'
+    return null
 
   token: (name, value) ->
     @tokens.push([name, value, @currentLine, @current_idx])
+    return null
 
   tokenizeFromStringRegex: (name, regex, part=0, lengthPart=part, output=true) ->
     return 0 unless match = regex.exec(@chunk)
@@ -94,7 +97,7 @@ class Lexer
       break if R > 0
     return R
 
-  keywordToken: ->
+  keywordToken: -> return (
     @tokenizeFromWord('SELECT') or
     @tokenizeFromWord('INSERT') or
     @tokenizeFromWord('INTO') or
@@ -130,7 +133,7 @@ class Lexer
     @tokenizeFromWord('ROWS') or
     @tokenizeFromWord('ONLY') or
     @tokenizeFromWord('NEXT') or
-    @tokenizeFromWord('FIRST')
+    @tokenizeFromWord('FIRST')    )
 
   dotToken: -> @tokenizeFromWord('DOT', '.')
   operatorToken:    -> @tokenizeFromList('OPERATOR', SQL_OPERATORS)
