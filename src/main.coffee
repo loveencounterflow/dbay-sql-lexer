@@ -161,9 +161,6 @@ class Lexer
   semicolon:        -> @tokenizeFromRegex('SEMICOLON', SEMICOLON)
   unknown:          -> @tokenizeFromRegex('UNKNOWN', UNKNOWN)
 
-  regexEscape: (str) ->
-    str.replace(/[-[\]{}()*+?.,\\^$|#\s]/gu, "\\$&")
-
   SQL_FUNCTIONS       = ['AVG', 'COUNT', 'MIN', 'MAX', 'SUM']
   SQL_SORT_ORDERS     = ['ASC', 'DESC']
   SQL_OPERATORS       = ['=', '!=', '>=', '>', '<=', '<>', '<', 'LIKE', 'NOT LIKE', 'ILIKE', 'NOT ILIKE', 'IS NOT', 'IS', 'REGEXP', 'NOT REGEXP']
