@@ -34,6 +34,32 @@ of the original code that was outside the scope of a lexer removed.
   LITERAL             = /^`?([a-z_][a-z0-9_]{0,}(:(number|float|string|date|boolean))?)`?/iu
   ```
 
+* **[–]** implement correct identifier parsing; from [*Requirements For The SQLite Tokenizer: Identifier
+  tokens*](https://www.sqlite.org/draft/tokenreq.html):
+
+  > Identifiers follow the usual rules with the exception that SQLite allows the dollar-sign symbol in the
+  > interior of an identifier. The dollar-sign is for compatibility with Microsoft SQL-Server and is not
+  > part of the SQL standard.
+  >
+  > H41130: SQLite shall recognize as an ID token any sequence of characters that begins with an ALPHABETIC
+  > character and continue with zero or more ALPHANUMERIC characters and/or "$" (u0024) characters and which
+  > is not a keyword token. Identifiers can be arbitrary character strings within square brackets. This
+  > feature is also for compatibility with Microsoft SQL-Server and not a part of the SQL standard.
+  >
+  > H41130: SQLite shall recognize as an ID token any sequence of characters that begins with an ALPHABETIC
+  > character and continue with zero or more ALPHANUMERIC characters and/or "$" (u0024) characters and which
+  > is not a keyword token. Identifiers can be arbitrary character strings within square brackets. This
+  > feature is also for compatibility with Microsoft SQL-Server and not a part of the SQL standard.
+  >
+  > H41140: SQLite shall recognize as an ID token any sequence of non-zero characters that begins with "["
+  > (u005b) and continuing through the first "]" (u005d) character. The standard way of quoting SQL
+  > identifiers is to use double-quotes.
+  >
+  > H41140: SQLite shall recognize as an ID token any sequence of non-zero characters that begins with "["
+  > (u005b) and continuing through the first "]" (u005d) character. The standard way of quoting SQL
+  > identifiers is to use double-quotes.
+
+
 ## Is Done
 
 * **[+]** use `u`nicode flag on all regexes
