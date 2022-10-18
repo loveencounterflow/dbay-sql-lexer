@@ -177,9 +177,6 @@ class Lexer
   SUB_SELECT_OP       = ['IN', 'ANY', 'ALL', 'SOME']
   SUB_SELECT_UNARY_OP = ['EXISTS']
   SQL_CONDITIONALS    = ['AND', 'OR']
-  # SQL_BETWEENS        = ['BETWEEN', 'NOT BETWEEN']
-  # SQL_BETWEENS        = /((?:\bnot\b\s+)?\bbetween\b)/isu
-  # NOT                 = /^(\bnot\b)/isu
   BETWEEN             = /^(\bbetween\b)/isu
   BOOLEAN             = ['TRUE', 'FALSE', 'NULL']
   MATH                = ['+', '-', '||', '&&']
