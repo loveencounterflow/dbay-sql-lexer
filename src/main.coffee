@@ -26,10 +26,9 @@ class Lexer
     @keep_whitespace  = cfg?.keep_whitespace ? false
     @tokens           = []
     @currentLine      = 1
-    @currentOffset    = 0
-    i = 0
-    while @chunk = sql.slice(i)
-      bytesConsumed =  @keywordToken() or
+    @current_idx      = 0
+    while @chunk = sql.slice @current_idx
+      codeunit_count = @keywordToken() or
                        @starToken() or
                        @booleanToken() or
                        @sortOrderToken() or
@@ -50,9 +49,9 @@ class Lexer
                        @semicolon() or
                        @unknown()
 
-      throw new Error("NOTHING CONSUMED: Stopped at - '#{@chunk.slice(0,30)}'") if bytesConsumed < 1
-      i += bytesConsumed
-      @currentOffset += bytesConsumed
+      if codeunit_count < 1
+        throw new Error "nothing consumed: Stopped at - #{rpr @chunk[ ... 100 ]}"
+      @current_idx += codeunit_count
     @token('EOF', '')
     @postProcess()
 
@@ -64,7 +63,7 @@ class Lexer
           token[0] = 'MATH_MULTI'
 
   token: (name, value) ->
-    @tokens.push([name, value, @currentLine, @currentOffset])
+    @tokens.push([name, value, @currentLine, @current_idx])
 
   tokenizeFromStringRegex: (name, regex, part=0, lengthPart=part, output=true) ->
     return 0 unless match = regex.exec(@chunk)
