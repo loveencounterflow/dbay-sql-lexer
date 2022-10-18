@@ -88,11 +88,11 @@ class Lexer
     return match[1].length
 
   tokenizeFromList: (name, list) ->
-    ret = 0
+    R = 0
     for entry in list
-      ret = @tokenizeFromWord(name, entry)
-      break if ret > 0
-    ret
+      R = @tokenizeFromWord(name, entry)
+      break if R > 0
+    return R
 
   keywordToken: ->
     @tokenizeFromWord('SELECT') or
