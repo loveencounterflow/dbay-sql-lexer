@@ -90,6 +90,7 @@ class Lexer
     @tokenizeFromWord('WHERE') or
     @tokenizeFromWord('GROUP') or
     @tokenizeFromWord('ORDER') or
+    @tokenizeFromWord('NOT') or
     @tokenizeFromWord('BY') or
     @tokenizeFromWord('HAVING') or
     @tokenizeFromWord('LIMIT') or
@@ -122,7 +123,7 @@ class Lexer
     @tokenizeFromList('MATH', MATH) or
     @tokenizeFromList('MATH_MULTI', MATH_MULTI)
   conditionalToken: -> @tokenizeFromList('CONDITIONAL', SQL_CONDITIONALS)
-  betweenToken:     -> @tokenizeFromList('BETWEEN', SQL_BETWEENS)
+  betweenToken:     -> @tokenizeFromRegex('BETWEEN', BETWEEN)
   subSelectOpToken: -> @tokenizeFromList('SUB_SELECT_OP', SUB_SELECT_OP)
   subSelectUnaryOpToken: -> @tokenizeFromList('SUB_SELECT_UNARY_OP', SUB_SELECT_UNARY_OP)
   functionToken:    -> @tokenizeFromList('FUNCTION', SQL_FUNCTIONS)
@@ -169,7 +170,10 @@ class Lexer
   SUB_SELECT_OP       = ['IN', 'NOT IN', 'ANY', 'ALL', 'SOME']
   SUB_SELECT_UNARY_OP = ['EXISTS']
   SQL_CONDITIONALS    = ['AND', 'OR']
-  SQL_BETWEENS        = ['BETWEEN', 'NOT BETWEEN']
+  # SQL_BETWEENS        = ['BETWEEN', 'NOT BETWEEN']
+  # SQL_BETWEENS        = /((?:\bnot\b\s+)?\bbetween\b)/isu
+  # NOT                 = /^(\bnot\b)/isu
+  BETWEEN             = /^(\bbetween\b)/isu
   BOOLEAN             = ['TRUE', 'FALSE', 'NULL']
   MATH                = ['+', '-', '||', '&&']
   MATH_MULTI          = ['/', '*']
