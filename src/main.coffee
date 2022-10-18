@@ -167,7 +167,7 @@ class Lexer
   STAR                = /^\*/u
   COMMA               = /^,/u
   WHITESPACE          = /^[ \n\r]+/u
-  LITERAL             = /^`?([a-z_][a-z0-9_]{0,}(:(number|float|string|date|boolean))?)`?/iu
+  LITERAL             = /^([\p{Letter}_][\p{Letter}_0-9]*)/iu
   PARAMETER           = /^\$([a-z0-9_]+(:(number|float|string|date|boolean))?)/u
   NUMBER              = /^[+-]?[0-9]+(\.[0-9]+)?/u
   STRING              = /^'((?:[^\\']+?|\\.|'')*)'(?!')/u
