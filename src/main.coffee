@@ -52,7 +52,6 @@ class Lexer
       if codeunit_count < 1
         throw new Error "nothing consumed: Stopped at - #{rpr @chunk[ ... 100 ]}"
       @current_idx += codeunit_count
-    @token('EOF', '')
     @postProcess()
 
   postProcess: ->
@@ -198,7 +197,6 @@ exports.tokenize = ( sql, cfg ) ->
   R = []
   for [ type, text, lnr, idx, ] in ( new Lexer sql, cfg ).tokens
     type = type.toLowerCase()
-    continue if type is 'eof'
     type = switch type
       when 'literal'    then 'identifier'
       when 'dblstring'  then 'quoted_identifier'
