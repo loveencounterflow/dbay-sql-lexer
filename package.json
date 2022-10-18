@@ -28,5 +28,8 @@
   },
   "scripts": {
     "test": "echo see 'https://github.com/loveencounterflow/hengist/tree/master/dev/dbay-sql-lexer'"
+  },
+  "dependencies": {
+    "guy": "11.11.0"
   }
 }

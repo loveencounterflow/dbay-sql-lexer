@@ -1,0 +1,36 @@
+lockfileVersion: 5.4
+
+specifiers:
+  guy: 11.11.0
+
+dependencies:
+  guy: 11.11.0
+
+packages:
+
+  /guy/11.11.0:
+    resolution: {integrity: sha512-HaCuFCQ647cT/BsvFTgxwQ2gBliJeWUqvcRrk1wTP6IF0VE2UmbFYqzZXR9hVm+3AkCwCA1sd8nPhXBINSMwpQ==}
+    peerDependencies:
+      acorn: ^8.7.1
+      acorn-loose: ^8.3.0
+      acorn-walk: ^8.2.0
+      astring: ^1.8.3
+      tmp: ^0.2.1
+    dependencies:
+      intertype-legacy: 7.7.1
+      letsfreezethat: 3.1.0
+    dev: false
+
+  /intertype-legacy/7.7.1:
+    resolution: {integrity: sha512-Bj3k9bCu8vA6JLIvnCrJXOdkecgY5wtCmORclJ87uq22N53swREHT5bezSeK5TwcxgSJEDg2wEfcn4kNr9Qv8A==}
+    dependencies:
+      multimix: 5.0.0
+    dev: false
+
+  /letsfreezethat/3.1.0:
+    resolution: {integrity: sha512-jJ1nvvQi6unW0WifjNPMIb64Byom0EXzSKWFYA++EpyjK3qv1J2pqeSoEJ61tGJoNG0GoNjPoeLYhxW16riZaA==}
+    dev: false
+
+  /multimix/5.0.0:
+    resolution: {integrity: sha512-N9cdGSDDD7kxOV7R6e4iZqsHTZ4F4iiSDWqMcVqx4gEH6HBtRXav39Gj3fgT1YqvBcwPCQuf0Oa5R2cDaLWK8A==}
+    dev: false
