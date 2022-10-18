@@ -68,13 +68,13 @@ class Lexer
     return null
 
   tokenizeFromStringRegex: (name, regex, part=0, lengthPart=part, output=true) ->
-    return 0 unless match = regex.exec(@chunk)
+    return 0 unless ( match = regex.exec @chunk )?
     partMatch = match[part].replace(/''/gu, "'")
     @push_token(name, partMatch) if output
     return match[lengthPart].length
 
   tokenizeFromRegex: (name, regex, part=0, lengthPart=part, output=true) ->
-    return 0 unless match = regex.exec(@chunk)
+    return 0 unless ( match = regex.exec @chunk )?
     partMatch = match[part]
     @push_token(name, partMatch) if output
     return match[lengthPart].length
@@ -156,10 +156,8 @@ class Lexer
     @tokenizeFromStringRegex('STRING', STRING, 1, 0) ||
     @tokenizeFromRegex('DBLSTRING', DBLSTRING, 1, 0)
 
-
   parensToken: ->
     return ( @tokenizeFromRegex 'LEFT_PAREN', /^\(/u ) or ( @tokenizeFromRegex 'RIGHT_PAREN', /^\)/u )
-
 
   whitespaceToken: ->
     return 0 unless match = WHITESPACE.exec(@chunk)
