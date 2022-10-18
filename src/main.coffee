@@ -163,8 +163,8 @@ class Lexer
 
   SQL_FUNCTIONS       = ['AVG', 'COUNT', 'MIN', 'MAX', 'SUM']
   SQL_SORT_ORDERS     = ['ASC', 'DESC']
-  SQL_OPERATORS       = ['=', '!=', '>=', '>', '<=', '<>', '<', 'LIKE', 'NOT LIKE', 'ILIKE', 'NOT ILIKE', 'IS NOT', 'IS', 'REGEXP', 'NOT REGEXP']
-  SUB_SELECT_OP       = ['IN', 'NOT IN', 'ANY', 'ALL', 'SOME']
+  SQL_OPERATORS       = ['=', '!=', '>=', '>', '<=', '<>', '<', 'LIKE', 'LIKE', 'ILIKE', 'ILIKE', 'IS', 'REGEXP', 'REGEXP']
+  SUB_SELECT_OP       = ['IN', 'ANY', 'ALL', 'SOME']
   SUB_SELECT_UNARY_OP = ['EXISTS']
   SQL_CONDITIONALS    = ['AND', 'OR']
   # SQL_BETWEENS        = ['BETWEEN', 'NOT BETWEEN']
