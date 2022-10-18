@@ -9,6 +9,7 @@
 - [𓆤DBay SQL Lexer](#%F0%93%86%A4dbay-sql-lexer)
 - [Acknowledgements](#acknowledgements)
 - [To Do](#to-do)
+  - [Is Done](#is-done)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -16,7 +17,7 @@
 
 # 𓆤DBay SQL Lexer
 
-The DBay SQL Lexer takes an SQL string as input and returns a list of tokens in the format `[ type, text, line_nr, offset, ]`
+The DBay SQL Lexer takes an SQL string as input and returns a list of tokens in the format `{ type, text, idx, }`
 
 # Acknowledgements
 
@@ -26,10 +27,9 @@ of the original code that was outside the scope of a lexer removed.
 
 # To Do
 
-* **[–]** return list of objects instead of list of lists
 * **[–]** use lower case for type names
 
-<!-- ## Is Done
+## Is Done
 
-* **[+]** implement `DBay::do()` as a method that unifies all of `better-sqlite3`'s `Statement::run()`,
- -->
+* **[+]** return list of objects instead of list of lists
+
