@@ -63,20 +63,20 @@ class Lexer
           token[0] = 'MATH_MULTI'
     return null
 
-  token: (name, value) ->
+  push_token: (name, value) ->
     @tokens.push([name, value, @currentLine, @current_idx])
     return null
 
   tokenizeFromStringRegex: (name, regex, part=0, lengthPart=part, output=true) ->
     return 0 unless match = regex.exec(@chunk)
     partMatch = match[part].replace(/''/gu, "'")
-    @token(name, partMatch) if output
+    @push_token(name, partMatch) if output
     return match[lengthPart].length
 
   tokenizeFromRegex: (name, regex, part=0, lengthPart=part, output=true) ->
     return 0 unless match = regex.exec(@chunk)
     partMatch = match[part]
-    @token(name, partMatch) if output
+    @push_token(name, partMatch) if output
     return match[lengthPart].length
 
   tokenizeFromWord: ( name, word = name ) ->
@@ -87,7 +87,7 @@ class Lexer
       new RegExp("^(#{word})",'igu')
     match = matcher.exec(@chunk)
     return 0 unless match
-    @token(name, match[1])
+    @push_token(name, match[1])
     return match[1].length
 
   tokenizeFromList: (name, list) ->
@@ -164,7 +164,7 @@ class Lexer
   whitespaceToken: ->
     return 0 unless match = WHITESPACE.exec(@chunk)
     partMatch = match[0]
-    @token('WHITESPACE', partMatch) if @keep_whitespace
+    @push_token('WHITESPACE', partMatch) if @keep_whitespace
     newlines = partMatch.match(/\n/gu, '')
     @currentLine += newlines?.length || 0
     return partMatch.length
