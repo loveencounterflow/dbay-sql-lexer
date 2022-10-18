@@ -137,8 +137,7 @@ class Lexer
 
 
   parensToken: ->
-    @tokenizeFromRegex('LEFT_PAREN', /^\(/,) or
-    @tokenizeFromRegex('RIGHT_PAREN', /^\)/,)
+    return ( @tokenizeFromRegex 'LEFT_PAREN', /^\(/u ) or ( @tokenizeFromRegex 'RIGHT_PAREN', /^\)/u )
 
   windowExtension: ->
     match = (/^\.(win):(length|time)/iu).exec(@chunk)
