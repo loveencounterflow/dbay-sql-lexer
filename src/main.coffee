@@ -185,7 +185,7 @@ class Lexer
   COMMA               = /^,/u
   WHITESPACE          = /^[ \n\r]+/u
   LITERAL             = /^([\p{Letter}_][\p{Letter}_0-9]*)/iu
-  PARAMETER           = /^\$([a-z0-9_]+(:(number|float|string|date|boolean))?)/u
+  PARAMETER           = /^\$([\p{Letter}_][\p{Letter}_0-9]*)/u
   NUMBER              = /^[+-]?[0-9]+(\.[0-9]+)?/u
   STRING              = /^'((?:[^\\']+?|\\.|'')*)'(?!')/u
   DBLSTRING           = /^"([^\\"]*(?:\\.[^\\"]*)*)"/u
