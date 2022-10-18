@@ -27,7 +27,7 @@ class Lexer
     @tokens           = []
     @currentLine      = 1
     @current_idx      = 0
-    while @chunk = sql.slice @current_idx
+    while @chunk = sql[ @current_idx ... ]
       codeunit_count = @keywordToken() or
                        @starToken() or
                        @booleanToken() or
