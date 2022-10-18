@@ -64,9 +64,9 @@ class Lexer
   tokenizeFromWord: ( name, word = name ) ->
     word = GUY.str.escape_for_regex word
     matcher = if ( /^\w+$/u ).test(word)
-      new RegExp("^(#{word})\\b",'ig')
+      new RegExp("^(#{word})\\b",'igu')
     else
-      new RegExp("^(#{word})",'ig')
+      new RegExp("^(#{word})",'igu')
     match = matcher.exec(@chunk)
     return 0 unless match
     @token(name, match[1])
