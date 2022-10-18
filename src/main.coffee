@@ -1,3 +1,6 @@
+
+GUY = require 'guy'
+
 class Lexer
   constructor: (sql, cfg = {} ) ->
     @sql              = sql
@@ -58,8 +61,8 @@ class Lexer
     @token(name, partMatch) if output
     return match[lengthPart].length
 
-  tokenizeFromWord: (name, word=name) ->
-    word = @regexEscape(word)
+  tokenizeFromWord: ( name, word = name ) ->
+    word = GUY.str.escape_for_regex word
     matcher = if ( /^\w+$/u ).test(word)
       new RegExp("^(#{word})\\b",'ig')
     else
