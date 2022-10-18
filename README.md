@@ -27,6 +27,7 @@ of the original code that was outside the scope of a lexer removed.
 
 # To Do
 
+* **[–]** make lexer accept Unicode identifiers
 * **[–]** regex on line 176 is incorrect because backticks can occur independently of each other:
 
   ```
