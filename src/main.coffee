@@ -1,10 +1,10 @@
 class Lexer
-  constructor: (sql, opts={}) ->
-    @sql = sql
-    @tokens = []
-    @currentLine = 1
-    @currentOffset = 0
+  constructor: (sql, cfg = {} ) ->
+    @sql              = sql
     @keep_whitespace  = cfg?.keep_whitespace ? false
+    @tokens           = []
+    @currentLine      = 1
+    @currentOffset    = 0
     i = 0
     while @chunk = sql.slice(i)
       bytesConsumed =  @keywordToken() or
