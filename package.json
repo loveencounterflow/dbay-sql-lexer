@@ -1,7 +1,7 @@
 {
   "name": "dbay-sql-lexer",
   "description": "Lexer for SQL Syntax",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "main": "lib/main.js",
   "contributors": [
     {
