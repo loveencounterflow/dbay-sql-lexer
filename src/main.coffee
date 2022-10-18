@@ -182,7 +182,9 @@ class Lexer
   SEMICOLON           = /^;/
   UNKNOWN             = /./u
 
-
-
-exports.tokenize = (sql, opts) -> (new Lexer(sql, opts)).tokens
-
+#-----------------------------------------------------------------------------------------------------------
+exports.tokenize = ( sql, cfg ) ->
+  R = []
+  for [ type, text, lnr, idx, ] in ( new Lexer sql, cfg ).tokens
+    R.push { type, text, idx, }
+  return R
