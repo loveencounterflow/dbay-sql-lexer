@@ -13,7 +13,6 @@ class Lexer
       bytesConsumed =  @keywordToken() or
                        @starToken() or
                        @booleanToken() or
-                       @functionToken() or
                        @windowExtension() or
                        @sortOrderToken() or
                        @commaToken() or
@@ -126,7 +125,6 @@ class Lexer
   betweenToken:     -> @tokenizeFromRegex('BETWEEN', BETWEEN)
   subSelectOpToken: -> @tokenizeFromList('SUB_SELECT_OP', SUB_SELECT_OP)
   subSelectUnaryOpToken: -> @tokenizeFromList('SUB_SELECT_UNARY_OP', SUB_SELECT_UNARY_OP)
-  functionToken:    -> @tokenizeFromList('FUNCTION', SQL_FUNCTIONS)
   sortOrderToken:   -> @tokenizeFromList('DIRECTION', SQL_SORT_ORDERS)
   booleanToken:     -> @tokenizeFromList('BOOLEAN', BOOLEAN)
 
@@ -161,7 +159,6 @@ class Lexer
   semicolon:        -> @tokenizeFromRegex('SEMICOLON', SEMICOLON)
   unknown:          -> @tokenizeFromRegex('UNKNOWN', UNKNOWN)
 
-  SQL_FUNCTIONS       = ['AVG', 'COUNT', 'MIN', 'MAX', 'SUM']
   SQL_SORT_ORDERS     = ['ASC', 'DESC']
   SQL_OPERATORS       = ['=', '!=', '>=', '>', '<=', '<>', '<', 'LIKE', 'LIKE', 'ILIKE', 'ILIKE', 'IS', 'REGEXP', 'REGEXP']
   SUB_SELECT_OP       = ['IN', 'ANY', 'ALL', 'SOME']
