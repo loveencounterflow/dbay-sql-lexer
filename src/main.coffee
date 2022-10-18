@@ -1,6 +1,25 @@
 
-GUY = require 'guy'
 
+'use strict'
+
+
+############################################################################################################
+GUY                       = require 'guy'
+{ alert
+  debug
+  help
+  info
+  plain
+  praise
+  urge
+  warn
+  whisper }               = GUY.trm.get_loggers 'DBAY-SQL-LEXER'
+{ rpr
+  inspect
+  echo
+  log     }               = GUY.trm
+
+#===========================================================================================================
 class Lexer
   constructor: (sql, cfg = {} ) ->
     @sql              = sql
