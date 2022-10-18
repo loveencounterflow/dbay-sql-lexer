@@ -182,8 +182,8 @@ class Lexer
   STAR                = /^\*/u
   COMMA               = /^,/u
   WHITESPACE          = /^[ \n\r]+/u
-  LITERAL             = /^([\p{Letter}_][\p{Letter}_0-9]*)/iu
-  PARAMETER           = /^\$([\p{Letter}_][\p{Letter}_0-9]*)/u
+  LITERAL             = /^([\p{Letter}_][\p{Letter}_0-9$]*)/iu
+  PARAMETER           = /^\$([\p{Letter}_][\p{Letter}_0-9$]*)/u
   NUMBER              = /^[+-]?[0-9]+(\.[0-9]+)?/u
   STRING              = /^'((?:[^\\']+?|\\.|'')*)'(?!')/u
   DBLSTRING           = /^"([^\\"]*(?:\\.[^\\"]*)*)"/u
