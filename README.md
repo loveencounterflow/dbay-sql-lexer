@@ -75,6 +75,9 @@ of the original code that was outside the scope of a lexer removed.
   > (u005b) and continuing through the first "]" (u005d) character. The standard way of quoting SQL
   > identifiers is to use double-quotes.
 
+* **[–]** replace with re-written parser based on [moo](https://github.com/no-context/moo) (or similar),
+  making use of the regex stick`y` flag
+
 
 ## Is Done
 
