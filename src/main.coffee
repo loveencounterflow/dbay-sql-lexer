@@ -30,6 +30,8 @@ class Lexer
     while @chunk = sql[ @current_idx ... ]
       codeunit_count = @keywordToken() or
                        @starToken() or
+                       @eolcommentToken() or
+                       @blockcommentToken() or
                        @booleanToken() or
                        @sortOrderToken() or
                        @commaToken() or
@@ -148,6 +150,8 @@ class Lexer
   booleanToken:     -> @tokenizeFromList('BOOLEAN', BOOLEAN)
 
   starToken:        -> @tokenizeFromRegex('STAR', STAR)
+  eolcommentToken:  -> @tokenizeFromRegex('EOLCOMMENT', EOLCOMMENT)
+  blockcommentToken:  -> @tokenizeFromRegex('BLOCKCOMMENT', BLOCKCOMMENT)
   commaToken:       -> @tokenizeFromRegex('COMMA', COMMA)
   literalToken:     -> @tokenizeFromRegex('LITERAL', LITERAL, 1, 0)
   numberToken:      -> @tokenizeFromRegex('NUMBER', NUMBER)
@@ -180,6 +184,8 @@ class Lexer
   MATH                = ['+', '-', '||', '&&']
   MATH_MULTI          = ['/', '*']
   STAR                = /^\*/u
+  EOLCOMMENT          = /^--/u
+  BLOCKCOMMENT        = /^\/\*.*\*\//su
   COMMA               = /^,/u
   WHITESPACE          = /^[ \n\r]+/u
   LITERAL             = /^([\p{Letter}_][\p{Letter}_0-9$]*)/iu
