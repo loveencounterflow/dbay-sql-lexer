@@ -74,7 +74,7 @@ However, a simple experiment where we loop over all Unicode code points:
 gives us only these (inclusive ranges) of rejected codepoints:
 
 ```
-0x0001..0x0019
+0x0000..0x0019
 0x001a..0x0023
 0x0025..0x002f
 0x003a..0x0040
