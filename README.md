@@ -8,6 +8,7 @@
 
 - [𓆤DBay SQL Lexer](#%F0%93%86%A4dbay-sql-lexer)
 - [Acknowledgements](#acknowledgements)
+- [Notes](#notes)
 - [To Do](#to-do)
   - [Is Done](#is-done)
 
@@ -38,6 +39,53 @@ gives
 
 The DBay SQL Lexer is a fork of [mistic100/sql-parser](https://github.com/mistic100/sql-parser), with much
 of the original code that was outside the scope of a lexer removed.
+
+# Notes
+
+* the SQLite documentation ([*Requirements For The SQLite Tokenizer*](https://www.sqlite.org/draft/tokenreq.html)) is not quite
+  accurate at least in some parts; it states that
+
+  > H41130: SQLite shall recognize as an ID token any sequence of characters that begins with an ALPHABETIC
+  > character and continue with zero or more ALPHANUMERIC characters and/or "$" (u0024) characters and which
+  > is not a keyword token.
+
+However, a simple experiment where we loop over all Unicode code points:
+
+```coffee
+@dbay_macros_demo_legal_chrs_in_identifiers = ( T, done ) ->
+  { DBay      }     = require '../../../apps/dbay'
+  db                = new DBay()
+  #.........................................................................................................
+  db ->
+    for cid in [ 0x0000 .. 0x10ffffff ]
+      cid_hex = '0x' + ( cid.toString 16 ).padStart 4, '0'
+      chr   = String.fromCodePoint cid
+      name  = "x#{chr}x"
+      try
+        rows = ( row for row from db SQL"""select 42 as #{name};""" )
+        # debug '^434^', cid_hex, rows[ 0 ]
+      catch error
+        warn cid_hex, GUY.trm.reverse error.message
+    debug '^645^', cid_hex
+  #.........................................................................................................
+  done?()
+```
+
+gives us only these (inclusive ranges) of rejected codepoints:
+
+```
+0x0001..0x0019
+0x001a..0x0023
+0x0025..0x002f
+0x003a..0x0040
+0x005b..0x005e
+0x0060
+0x007b..0x007f
+```
+
+For the first position in names, the documentation correctly states that codepoints `0x0024` `/[$]/` and
+`0x030..0x039` `/[0-9]/` have to be excluded in addition.
+
 
 
 # To Do
