@@ -30,6 +30,7 @@
     "test": "echo see 'https://github.com/loveencounterflow/hengist/tree/master/dev/dbay-sql-lexer'"
   },
   "dependencies": {
-    "guy": "11.11.0"
+    "guy": "11.13.0",
+    "intertype": "^0.105.1"
   }
 }
