@@ -12,7 +12,7 @@ GUY                       = require 'guy'
   praise
   urge
   warn
-  whisper }               = GUY.trm.get_loggers 'DEMO-MOO-LEXER'
+  whisper }               = GUY.trm.get_loggers 'DBAY-SQL-LEXER'
 { rpr
   inspect
   echo
@@ -20,9 +20,8 @@ GUY                       = require 'guy'
 #...........................................................................................................
 { equals
   copy_regex }            = GUY.samesame
-{ Moonriver }             = require 'moonriver'
-{ $window }               = require 'moonriver/lib/transforms'
-{ $ }                     = Moonriver
+{ Pipeline,               \
+  transforms: TF, }       = require 'moonriver'
 
 
 #===========================================================================================================
@@ -95,7 +94,7 @@ class Lexer
         break if @state.position > last_position
         match = null
         for token, entry of @cfg.tokens
-          debug '^34345345^', @state.chunk
+          # debug '^34345345^', @state.chunk
           debug '^34345345^', @state.position, token
           entry.matcher.lastIndex = @state.position
           continue unless ( match = @state.chunk.match entry.matcher )?
@@ -119,21 +118,21 @@ class Lexer
   _create_pipeline: ->
     # last          = Symbol 'last'
     walker  = null
-    mr      = new Moonriver()
-    mr.push show = ( d ) -> urge '^49-1^', d
-    mr.push xxx = ( source ) =>
+    p       = new Pipeline()
+    p.push show = ( d ) -> urge '^49-1^', d
+    p.push xxx = ( source ) =>
       @state.chunk = source
       walker = @_create_walker()
-    mr.push show = ( d ) -> urge '^49-2^', d
-    mr.push xxx = ( d, send ) =>
+    p.push show = ( d ) -> urge '^49-2^', d
+    p.push xxx = ( d, send ) =>
       # debug '^342^', d for d from @walk()
       # info '^342^', d for d from @_create_walker()
       # debug '^342^', @state
       send token for token from walker
-    mr.push $window -1, +1, null
-    mr.push show = ( d ) -> urge '^49-3^', d
-    # mr.push store = ( d ) => @state.tokens.push d
-    return mr
+    p.push TF.$window -1, +1, null
+    p.push ( d, send ) -> send [ d[ -1 ], d[ 0 ], d[ +1 ], ]
+    # p.push store = ( d ) => @state.tokens.push d
+    return p
 
   #---------------------------------------------------------------------------------------------------------
   finish: ->
