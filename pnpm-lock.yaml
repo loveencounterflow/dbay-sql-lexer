@@ -3,10 +3,12 @@ lockfileVersion: 5.4
 specifiers:
   guy: 11.13.0
   intertype: ^0.105.1
+  moonriver: 1.2.0
 
 dependencies:
   guy: 11.13.0
   intertype: 0.105.1
+  moonriver: 1.2.0
 
 packages:
 
@@ -66,6 +68,12 @@ packages:
       - tmp
     dev: false
 
+  /intertype/7.7.1:
+    resolution: {integrity: sha512-GgGJYdbHaZ5AM4TvxzXSfkgFwAIEl6w3yIFiDY15uc85W41YfSRL0vNuO68tjNQ3gNIJ+U+xOYA8cw9NN8j0JQ==}
+    dependencies:
+      multimix: 5.0.0
+    dev: false
+
   /is-fullwidth-code-point/3.0.0:
     resolution: {integrity: sha512-zymm5+u+sCsSWyD9qNaejV3DFvhCKclKdizYaJUuHA83RLjb7nSuGnddCHGv0hk+KY7BMAlsWeK4Ueg6EV6XQg==}
     engines: {node: '>=8'}
@@ -73,6 +81,19 @@ packages:
 
   /letsfreezethat/3.1.0:
     resolution: {integrity: sha512-jJ1nvvQi6unW0WifjNPMIb64Byom0EXzSKWFYA++EpyjK3qv1J2pqeSoEJ61tGJoNG0GoNjPoeLYhxW16riZaA==}
+    dev: false
+
+  /moonriver/1.2.0:
+    resolution: {integrity: sha512-sshUB/C9z1lbGCqKk3mbPm0TBhT/Lw/4tl3PRWrvJpWIrO8MtOKAkUfNGi5uEG26jENiigwfCj36IsT7iCyQ6A==}
+    dependencies:
+      guy: 11.13.0
+      intertype: 7.7.1
+    transitivePeerDependencies:
+      - acorn
+      - acorn-loose
+      - acorn-walk
+      - astring
+      - tmp
     dev: false
 
   /multimix/5.0.0:
