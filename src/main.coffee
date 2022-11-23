@@ -20,6 +20,9 @@ GUY                       = require 'guy'
 #...........................................................................................................
 { equals
   copy_regex }            = GUY.samesame
+{ Moonriver }             = require 'moonriver'
+{ $window }               = require 'moonriver/lib/transforms'
+{ $ }                     = Moonriver
 
 
 #===========================================================================================================
@@ -41,6 +44,11 @@ class Lexer
     state               = @reset()
     @_compile()
     return undefined
+
+  #---------------------------------------------------------------------------------------------------------
+  reset: -> @state =
+    position:   0
+    chunk:      ''
 
   #---------------------------------------------------------------------------------------------------------
   _compile: ->
@@ -66,51 +74,70 @@ class Lexer
   #---------------------------------------------------------------------------------------------------------
   walk: ->
     last_position = @state.chunk.length - 1
-    prv_token     = null
-    prv_entry     = null
-    collector     = []
-    flush         = ->
-      yield from collector
-      collector = []
-      return null
     loop
-      break if @state.position >= last_position
+      break if @state.position > last_position
       match = null
       for token, entry of @cfg.tokens
         entry.matcher.lastIndex = @state.position
         continue unless ( match = @state.chunk.match entry.matcher )?
-        #...................................................................................................
-        if prv_entry?.consolidate
-          debug '^345345^', prv_token, prv_entry, entry, collector
-          if prv_token is entry.token
-            debug '^68-1^'
-            collector.push token
-          else
-            debug '^68-2^'
-            ### TAINT code duplication ###
-            flush()
-            yield { token, text: match[ 0 ], }
-        else
-          debug '^68-3^'
-          flush()
-          yield { token, text: match[ 0 ], }
-        #...................................................................................................
-        prv_token = token
-        prv_entry = entry
+        yield { token, text: match[ 0 ], }
         break
-      unless match?
-        throw new Error "no match"
+      throw new Error "no match" unless match?
       @state.position += match[ 0 ].length
     return null
 
   #---------------------------------------------------------------------------------------------------------
-  finish: ->
-    return null
+  _create_walker: ->
+    last_position = null
+    #.......................................................................................................
+    walker = ->
+      loop
+        break if @state.position > last_position
+        match = null
+        for token, entry of @cfg.tokens
+          debug '^34345345^', @state.chunk
+          debug '^34345345^', @state.position, token
+          entry.matcher.lastIndex = @state.position
+          continue unless ( match = @state.chunk.match entry.matcher )?
+          yield { token, text: match[ 0 ], }
+          break
+        throw new Error "no match" unless match?
+        @state.position += match[ 0 ].length
+      return null
+    #.......................................................................................................
+    R = ( walker.bind @ )()
+    R.reset = =>
+      last_position   = @state.chunk.length - 1
+      @state.position = 0
+      # @reset()
+      return null
+    #.......................................................................................................
+    R.reset()
+    return R
 
   #---------------------------------------------------------------------------------------------------------
-  reset: -> @state =
-    position:   0
-    chunk:      ''
+  _create_pipeline: ->
+    # last          = Symbol 'last'
+    walker  = null
+    mr      = new Moonriver()
+    mr.push show = ( d ) -> urge '^49-1^', d
+    mr.push xxx = ( source ) =>
+      @state.chunk = source
+      walker = @_create_walker()
+    mr.push show = ( d ) -> urge '^49-2^', d
+    mr.push xxx = ( d, send ) =>
+      # debug '^342^', d for d from @walk()
+      # info '^342^', d for d from @_create_walker()
+      # debug '^342^', @state
+      send token for token from walker
+    mr.push $window -1, +1, null
+    mr.push show = ( d ) -> urge '^49-3^', d
+    # mr.push store = ( d ) => @state.tokens.push d
+    return mr
+
+  #---------------------------------------------------------------------------------------------------------
+  finish: ->
+    return null
 
 
 ############################################################################################################
