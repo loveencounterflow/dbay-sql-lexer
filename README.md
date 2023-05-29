@@ -9,6 +9,7 @@
 - [𓆤DBay SQL Lexer](#%F0%93%86%A4dbay-sql-lexer)
 - [Acknowledgements](#acknowledgements)
 - [Notes](#notes)
+- [See Also](#see-also)
 - [To Do](#to-do)
   - [Is Done](#is-done)
 
@@ -86,6 +87,9 @@ gives us only these (inclusive ranges) of rejected codepoints:
 For the first position in names, the documentation correctly states that codepoints `0x0024` `/[$]/` and
 `0x030..0x039` `/[0-9]/` have to be excluded in addition.
 
+# See Also
+
+* [SQL Parser](https://github.com/taozhi8833998/node-sql-parser)
 
 
 # To Do
